@@ -1,0 +1,12 @@
+.bordered {
+  border: 10px groove darkorchid
+}
+
+h1 {
+  color: red;
+  background-color: blue;
+}
+
+#my-id {
+  color: green;
+}
