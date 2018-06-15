@@ -1,3 +1,34 @@
+function logout(){
+
+  fetch('http://localhost:3000/auth/logout', {
+    credentials: 'include',
+    method: 'delete'
+  })
+    .then(resp => {
+      console.log(resp.status)
+      if (resp.status === 401) {
+        throw 'Invalid Credentials';
+      }
+      if (resp.status === 200) {
+        return resp.json();
+      }
+      throw 'Unable to login at this time, please try again later';
+    })
+    .then(data => {
+      // Any Data you want to save goes here!
+      localStorage.setItem('fname', '')
+      localStorage.setItem("userData", '[')
+      window.location = '../../login/index.html'
+
+    })
+    .catch(err => {
+      localStorage.setItem('fname', '')
+      localStorage.setItem("userData", '[')
+      window.location = '../../login/index.html'
+      //document.getElementById('error-message').innerText = err;
+    })
+}
+
 function startTime() {
   var today = new Date();
   var month = today.getMonth();

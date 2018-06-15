@@ -9,7 +9,7 @@ import * as userService from '../services/user-service'; // Should probably chan
  */
 sessionRouter.post('/login', (req, resp, next) => {
   const session = req.body && req.body; //Da fook dis do
-
+  
   req.session.username = req.body.username
 
   userService.findByUser(req.body.username).then(data => {
