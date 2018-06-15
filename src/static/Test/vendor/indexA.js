@@ -1,4 +1,4 @@
-function logout(){
+function logout() {
 
   fetch('http://localhost:3000/auth/logout', {
     credentials: 'include',
@@ -36,7 +36,7 @@ function startTime() {
   var year = today.getFullYear();
 
   var h = today.getHours();
-  var h12 = ((h+11)%12)+1;
+  var h12 = ((h + 11) % 12) + 1;
   var m = today.getMinutes();
   var s = today.getSeconds();
   m = checkTime(m);
@@ -63,36 +63,36 @@ function clearAll() {
   localStorage.setItem("userData", '[')
 }
 
-function getReUserStatus(){
+function getReUserStatus() {
   // const body = document.getElementById('item-table-body');
-   console.log('here')
-   let status = 'pending'
- 
+  console.log('here')
+  let status = 'pending'
+
   fetch('http://localhost:3000/reimbursement/' + status, { credentials: 'same-origin' })
-  .then(resp => {
-    console.log(resp.status)
-    if (resp.status === 401 || resp.status === 403) {
-      return;
-    }
-    return resp.json();
-  })
-  .then((user) => {
- 
-    // TESTING
-    console.log('fetch called, contents are ' + user[0])
-    console.log(user[0])
- 
-    // clear table
-    const body = document.getElementById('userx-table-body');
-    body.innerHTML = '';
-    localStorage.setItem("userData", '[')
- 
-    // populate the table for each movie
- 
-    let i = 0;
-    while (i < user.length) {
- 
-      document.getElementById('userx-table-body').innerHTML += `
+    .then(resp => {
+      console.log(resp.status)
+      if (resp.status === 401 || resp.status === 403) {
+        return;
+      }
+      return resp.json();
+    })
+    .then((user) => {
+
+      // TESTING
+      console.log('fetch called, contents are ' + user[0])
+      console.log(user[0])
+
+      // clear table
+      const body = document.getElementById('userx-table-body');
+      body.innerHTML = '';
+      localStorage.setItem("userData", '[')
+
+      // populate the table for each movie
+
+      let i = 0;
+      while (i < user.length) {
+
+        document.getElementById('userx-table-body').innerHTML += `
  
       <tr bgcolor="#80dfff">
       <th id="reTable" value ="2" colspan="50" scope="row">Submitted: [${user[i].status}] ${(new Date(user[i].timestamp)).toLocaleString("en-US")}</th>
@@ -104,20 +104,20 @@ function getReUserStatus(){
             <th scope="col">Description</th>
             <th scope="col">Time of Expense</th>
           </tr>`;
- 
-      (user[i].items).forEach(addItem);
-      i++
-    }
- 
- 
-  })
-  .catch(err => {
-    console.log(err);
-    const body = document.getElementById('userx-table-body');
-    body.innerText = 'Unable to retreive data';
-  });
- 
- }
+
+        (user[i].items).forEach(addItem);
+        i++
+      }
+
+
+    })
+    .catch(err => {
+      console.log(err);
+      const body = document.getElementById('userx-table-body');
+      body.innerText = 'Unable to retreive data';
+    });
+
+}
 
 function getReByStatus() {
 
@@ -215,6 +215,13 @@ function addReimbursements() {
   let inDescription = document.getElementById('inputDescription').value
   let inTime = document.getElementById('inputTime').value
 
+  //Clear
+  document.getElementById('inputTitle').value = ''
+  document.getElementById('inputAmount').value = ''
+  document.getElementById('inputDescription').value = ''
+  document.getElementById('inputTime').value = ''
+
+
   items = `{
     "title": "${inTitle}",
     "amount": "${inAmount}",
@@ -264,8 +271,9 @@ function addReimbursements() {
     <th scope="col">${inTitle}</th>
     <th scope="col">${inAmount}</th>
     <th scope="col">${inDescription}</th>
-    <th scope="col">${inTime}</th>
+    <th scope="col">${inTime.substr(0, 10) + " " + inTime.substr(11, 15)}</th>
      `
+
 
 }
 
@@ -377,7 +385,7 @@ function addItem(user) {
     </tr>
   `;
 
-   // $('#exampleModalLong').modal('show');
+  // $('#exampleModalLong').modal('show');
 }
 
 function addItemx(user) {
@@ -393,7 +401,7 @@ function addItemx(user) {
     </tr>
   `;
 
-   $('#exampleModalLong').modal('show');
+  $('#exampleModalLong').modal('show');
 }
 
 function reQuery(inUser, inTime) {

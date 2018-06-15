@@ -128,6 +128,12 @@ function addReimbursements() {
   let inAmount = document.getElementById('inputAmount').value
   let inDescription = document.getElementById('inputDescription').value
   let inTime = document.getElementById('inputTime').value
+  
+  //Clear
+  document.getElementById('inputTitle').value = ''
+  document.getElementById('inputAmount').value = ''
+  document.getElementById('inputDescription').value = ''
+  document.getElementById('inputTime').value = ''
 
   items = `{
     "title": "${inTitle}",
@@ -179,7 +185,7 @@ function addReimbursements() {
     <th scope="col">${inTitle}</th>
     <th scope="col">${inAmount}</th>
     <th scope="col">${inDescription}</th>
-    <th scope="col">${inTime}</th>
+    <th scope="col">${inTime.substr(0,10) + " " +inTime.substr(11,15)}</th>
      `
 
 }
